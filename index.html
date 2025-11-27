@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Scratch Servers</title>
+        <meta name="description" content="Um servidor seguro para projetos Scratch online">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+    </head>
+<body>
+    <h1>Rodar servidores online no Scratch!</h1>
+    
+    <label for="project-id">ID do Projeto Scratch do Usuário:</label>
+    <input type="text" id="project-id" placeholder="Ex: https://scratch.mit.edu/project/68568743696"> 
+    
+    <button onclick="runProject()">Executar Projeto no Servidor</button>
+    
+    <hr>
+    
+    <h2>Resultado do Servidor:</h2>
+    <pre id="output">Aguardando execução...</pre>
+
+    <script>
+        // O caminho da API na Vercel: /api/nome-do-arquivo (sem a extensão .js)
+        const SERVER_URL = '/api/rodar-projeto'; 
+
+        async function runProject() {
+            const projectId = document.getElementById('project-id').value;
+            const outputElement = document.getElementById('output');
+
+            if (!projectId) {
+                outputElement.textContent = "❌ Por favor, insira a ID do projeto.";
+                return;
+            }
+
+            outputElement.textContent = 'Enviando solicitação ao servidor seguro da Vercel...';
+
+            try {
+                // Requisição POST para a Serverless Function (onde o login acontece!)
+                const response = await fetch(SERVER_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ projectId: projectId })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    outputElement.textContent = '✅ Sucesso! A execução foi iniciada no seu ambiente seguro.\n\n';
+                    outputElement.textContent += JSON.stringify(data, null, 2);
+                } else {
+                    // Se o servidor falhar (ex: erro de login do Scratch), esta seção é acionada.
+                    outputElement.textContent = '❌ Erro na Execução:\n\n';
+                    outputElement.textContent += data.error || JSON.stringify(data, null, 2);
+                }
+            } catch (error) {
+                // Erro de rede (servidor offline, URL errada, etc.)
+                outputElement.textContent = `❌ Erro de Conexão:\n\nNão foi possível conectar ou houve um erro de rede.`;
+                console.error('Erro de rede:', error);
+            };
+        };
+    </script>
+</body>
+</html>

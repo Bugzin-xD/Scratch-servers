@@ -1,0 +1,73 @@
+/* Paleta de Cores (Dark Mode): */
+/* Fundo Principal: #1e1e1e (Preto suave) */
+/* Fundo Secundário (Output): #252526 (Cinza escuro) */
+/* Texto Principal: #cccccc (Cinza claro) */
+/* Destaque (Título/Botões): #00aaff (Azul Ciano) */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1e1e1e; /* Fundo escuro */
+    color: #cccccc; /* Texto claro */
+    margin: 40px;
+    padding: 0;
+}
+
+h1 {
+    color: #00aaff; /* Destaque azul ciano */
+    border-bottom: 2px solid #555;
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+}
+
+/* Estilo para a área de entrada e o botão */
+label, input, button {
+    display: block;
+    margin-bottom: 15px;
+}
+
+input[type="text"] {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: #252526; /* Fundo do input escuro */
+    color: #cccccc; /* Texto do input claro */
+}
+
+input[type="text"]::placeholder {
+    color: #888;
+}
+
+button {
+    background-color: #00aaff; /* Azul ciano para o botão */
+    color: #1e1e1e; /* Texto escuro no botão */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0088cc;
+}
+
+hr {
+    margin: 30px 0;
+    border: 0;
+    border-top: 1px solid #444;
+}
+
+/* Estilo para a área de saída de resultados */
+#output {
+    background-color: #252526; /* Fundo da caixa de saída ligeiramente mais claro que o fundo principal */
+    border: 1px solid #444;
+    padding: 15px;
+    white-space: pre-wrap;
+    max-height: 400px;
+    overflow-y: auto;
+    font-size: 0.9em;
+    color: #cccccc; /* Texto claro */
+}
